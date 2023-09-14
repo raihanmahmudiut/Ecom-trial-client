@@ -13,46 +13,52 @@ import {
 	Typography,
 	Button,
 	Space,
-	Skeleton,
 	message,
+	Skeleton,
 } from "antd";
 import { HeartOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
+
 import { addToCart } from "../redux/slice/cart";
+import { addToWishlist } from "../redux/slice/wish";
 
 function ProductList() {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.products.data);
+	const isLoading = useSelector((state) => state.products.isLoading);
 	const { categoryId } = useParams();
 
-	// Dispatch the fetchProducts action when the component mounts
 	useEffect(() => {
 		if (categoryId) {
-			// Dispatch the action to fetch products by category
 			dispatch(fetchProductsByCategory(categoryId));
 		} else {
-			// Dispatch the action to fetch all products
 			dispatch(fetchProducts());
 		}
 	}, [dispatch, categoryId]);
 
-	// Function to handle "Add to Cart" button click
 	const handleAddToCart = (product) => {
-		dispatch(addToCart(product.id)); // Dispatch addToCart action with the product ID
-		message.success(`"${product.title}" added to cart`); // Show a success message with the product title
+		dispatch(addToCart(product.id));
+		message.success(`"${product.title}" added to cart`);
+	};
+
+	const handleAddtoWishList = (product) => {
+		dispatch(addToWishlist(product.id));
+		message.success(`"${product.title}" added to wish list`);
 	};
 
 	return (
 		<div>
-			{state && (
+			{isLoading ? (
+				<Skeleton active />
+			) : state && state.products ? (
 				<List
 					grid={{
-						gutter: [24, 24], // Set the default gutter
-						xs: 1, // 1 column for screens smaller than 576px (small screens)
-						sm: 2, // 2 columns for screens between 576px and 768px (medium screens)
+						gutter: [24, 24],
+						xs: 1,
+						sm: 2,
 						md: 3,
-						lg: 4, // 3 columns for screens between 768px and 992px (large screens)
+						lg: 4,
 					}}
 					dataSource={state.products}
 					renderItem={(product) => (
@@ -110,7 +116,7 @@ function ProductList() {
 														style={{
 															display: "flex",
 															flex: 1,
-															justifyContent: "flex-start", // Push items to the right
+															justifyContent: "flex-start",
 															alignItems: "center",
 														}}
 													>
@@ -119,6 +125,7 @@ function ProductList() {
 																display: "flex",
 																alignItems: "center",
 																justifyContent: "center",
+																marginBottom: 0,
 															}}
 														>
 															Price: ${product.price}{" "}
@@ -147,8 +154,8 @@ function ProductList() {
 															style={{
 																display: "flex",
 																flex: 1,
-																justifyContent: "flex-end", // Push items to the right
-																alignItems: "center", // Vertically center items
+																justifyContent: "flex-end",
+																alignItems: "center",
 															}}
 														>
 															<span style={{ color: "#FF9529" }}>
@@ -174,17 +181,17 @@ function ProductList() {
 															display: "flex",
 															flex: 1,
 															width: "80%",
-															alignItems: "center", // Center vertically
-															justifyContent: "center", // Center horizontally
+															alignItems: "center",
+															justifyContent: "center",
 														}}
 													>
 														Add to Cart
 													</Button>
 													<Button
+														onClick={() => handleAddtoWishList(product)}
 														alt="Add to Wishlist"
 														style={{
 															display: "flex",
-
 															alignItems: "center",
 															justifyContent: "center",
 														}}
@@ -200,6 +207,8 @@ function ProductList() {
 						</List.Item>
 					)}
 				/>
+			) : (
+				<div>No products available</div>
 			)}
 		</div>
 	);

@@ -30,7 +30,7 @@ const contentStyle = {
 	textAlign: "center",
 	justifyContent: "center",
 	alignItems: "center",
-	minHeight: 120,
+	minHeight: 600,
 	lineHeight: "120px",
 	color: "black",
 	backgroundColor: "#fff",
