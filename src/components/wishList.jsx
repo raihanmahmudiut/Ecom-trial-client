@@ -119,7 +119,7 @@ function Wishlist() {
 														type="danger"
 														onClick={() => handleRemoveFromWishlist(itemId)}
 													>
-														Remove from Wishlist
+														Delete
 													</Button>
 												</div>
 											</div>
