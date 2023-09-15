@@ -1,1 +1,5 @@
-
+:where(.css-dev-only-do-not-override-18iikkb)
+	.ant-menu-horizontal
+	.ant-menu-item {
+	padding-inline: 9px;
+}

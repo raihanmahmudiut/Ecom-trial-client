@@ -12,7 +12,7 @@ function AppMenu() {
 	return (
 		<div>
 			<Menu
-				className="border-none"
+				className="border-none text-md md:text-base"
 				mode="horizontal"
 				onClick={onMenuClick}
 				disabledOverflow={true}
@@ -39,6 +39,7 @@ function AppMenu() {
 					{
 						label: "Women",
 						key: "women",
+
 						children: [
 							{
 								label: "Women's Dresses",
@@ -66,6 +67,7 @@ function AppMenu() {
 					{
 						label: "Smartphones",
 						key: "smartphones",
+						style: { marginRight: "2px" },
 					},
 					{
 						label: "Fragrances",

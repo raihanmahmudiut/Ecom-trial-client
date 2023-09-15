@@ -154,7 +154,7 @@ function AppCart() {
 														}}
 													>
 														<p style={{ marginTop: "0", paddingTop: "0" }}>
-															Total Price: $
+															Total: $
 															{cart[itemId] * parseFloat(productInfo.price)}
 														</p>
 													</div>

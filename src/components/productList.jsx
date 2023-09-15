@@ -1,32 +1,25 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
 	fetchProducts,
 	fetchProductsByCategory,
 } from "../redux/slice/products";
-import {
-	Card,
-	List,
-	Rate,
-	Image,
-	Typography,
-	Button,
-	Space,
-	message,
-	Skeleton,
-} from "antd";
-import { HeartOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
+import { Card, List, Typography, Button, message, Skeleton, Badge } from "antd";
+import { HeartFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
 import { addToCart } from "../redux/slice/cart";
-import { addToWishlist } from "../redux/slice/wish";
+import { toggleWishlist } from "../redux/slice/wish";
 
 function ProductList() {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.products.data);
+	const cart = useSelector((state) => state.cart.data);
+
 	const isLoading = useSelector((state) => state.products.isLoading);
+	const wishlist = useSelector((state) => state.wish.data);
 	const { categoryId } = useParams();
 
 	useEffect(() => {
@@ -43,8 +36,16 @@ function ProductList() {
 	};
 
 	const handleAddtoWishList = (product) => {
-		dispatch(addToWishlist(product.id));
-		message.success(`"${product.title}" added to wish list`);
+		dispatch(toggleWishlist(product.id));
+		message.success(
+			`"${product.title}" ${
+				wishlist[product.id] ? "removed from" : "added to"
+			} wish list`
+		);
+	};
+
+	const isItemInWishlist = (productId) => {
+		return Boolean(wishlist[productId]);
 	};
 
 	return (
@@ -62,24 +63,30 @@ function ProductList() {
 					}}
 					dataSource={state.products}
 					renderItem={(product) => (
-						<List.Item>
+						<List.Item style={{ display: "flex", justifyContent: "center" }}>
 							<div
 								style={{
 									display: "flex",
 									flexDirection: "column",
 									maxWidth: "300px",
+									textAlign: "center",
 								}}
 							>
 								<div className="flex-1">
-									<Card
-										cover={
-											<img
-												src="/assets/image-placeholder-vertical.jpg"
-												alt={product.title}
-											/>
-										}
-										bodyStyle={{ padding: "0" }}
-									/>
+									<Badge.Ribbon
+										text={`${product.discountPercentage}% Off`}
+										color="red"
+									>
+										<Card
+											cover={
+												<img
+													src="/assets/image-placeholder-vertical.jpg"
+													alt={product.title}
+												/>
+											}
+											bodyStyle={{ padding: "0" }}
+										/>
+									</Badge.Ribbon>
 								</div>
 								<div
 									style={{
@@ -185,8 +192,14 @@ function ProductList() {
 															justifyContent: "center",
 														}}
 													>
-														Add to Cart
+														Add to Cart{" "}
+														{cart[product.id] && cart[product.id] > 0 && (
+															<span style={{ marginLeft: "8px" }}>
+																({cart[product.id]})
+															</span>
+														)}
 													</Button>
+
 													<Button
 														onClick={() => handleAddtoWishList(product)}
 														alt="Add to Wishlist"
@@ -194,9 +207,13 @@ function ProductList() {
 															display: "flex",
 															alignItems: "center",
 															justifyContent: "center",
+															color: isItemInWishlist(product.id)
+																? "red" // If the item is in the wishlist, set color to red
+																: "", // Otherwise, leave it empty to use the default color
 														}}
+														className="group"
 													>
-														<HeartOutlined />
+														<HeartFilled className="text-current transition-colors group-hover:text-red-500" />
 													</Button>
 												</div>
 											</div>

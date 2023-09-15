@@ -18,8 +18,6 @@ const headerStyle = {
 
 	lineHeight: "64px",
 	backgroundColor: "#fff",
-	display: "flex",
-
 	justifyContent: "space-between",
 	alignItems: "center",
 	zIndex: 99,
@@ -49,11 +47,14 @@ function App() {
 		<div className=" w-max-screen">
 			<Layout>
 				<BrowserRouter>
-					<Header style={headerStyle} className=" md:px-24">
+					<Header
+						style={headerStyle}
+						className="flex flex-row justify-between items-center md:px-24 w-full h-30 md:h-24 md:p-12"
+					>
 						<div>
 							<AppLogo />
 						</div>
-						<div className="hidden md:block">
+						<div className="hidden md:block w-full">
 							<AppMenu />
 						</div>
 						<div
@@ -71,8 +72,11 @@ function App() {
 
 					<Content
 						style={contentStyle}
-						className=" px-10 pt-5 md:px-24 md:pt-12"
+						className="flex flex-col justify-center items-center px-4 pt-5 md:px-24 md:pt-12"
 					>
+						<div className="md:hidden pb-10">
+							<AppMenu />
+						</div>
 						<PageContent />
 					</Content>
 					<Footer style={footerStyle}>Footer</Footer>
