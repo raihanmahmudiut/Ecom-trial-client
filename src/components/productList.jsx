@@ -154,7 +154,6 @@ function ProductList() {
 													<div
 														style={{
 															display: "flex",
-															flex: 1,
 														}}
 													>
 														<div
