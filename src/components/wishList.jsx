@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { HeartOutlined } from "@ant-design/icons";
+import { DeleteFilled, HeartOutlined, ShoppingFilled } from "@ant-design/icons";
 import { Button, Card, List, Typography, Drawer, Badge, message } from "antd";
 import { addToCart } from "../redux/slice/cart";
 import { removeFromWishlist } from "../redux/slice/wish";
@@ -89,12 +89,12 @@ function Wishlist() {
 												}}
 											>
 												<div style={{ flex: 1 }}>
-													<h3 style={{ marginTop: "0", paddingTop: "0" }}>
+													<h3 className="mt-0 pt-0 font-semibold">
 														{productInfo.title}
 													</h3>
 												</div>
 												<div style={{ flex: 1, textAlign: "right" }}>
-													<p style={{ marginTop: "0", paddingTop: "0" }}>
+													<p className="mt-0 pt-0 font-semibold">
 														Price: ${productInfo.price}
 													</p>
 												</div>
@@ -106,22 +106,20 @@ function Wishlist() {
 													justifyContent: "space-between",
 												}}
 											>
-												<div>
-													<Button
-														type="default"
-														onClick={() => handleAddToCart(productInfo)}
-													>
-														Add to Cart
-													</Button>
-												</div>
-												<div>
-													<Button
-														type="danger"
-														onClick={() => handleRemoveFromWishlist(itemId)}
-													>
-														Delete
-													</Button>
-												</div>
+												<button
+													className="cursor-pointer border-slate-300 border-2 rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
+													onClick={() => handleAddToCart(itemId)}
+												>
+													<ShoppingFilled className="md:text-xl" />{" "}
+													<p className="font-semibold">Add to Cart</p>
+												</button>
+												<button
+													className="cursor-pointer border-slate-300 border-2 rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
+													onClick={() => handleRemoveFromWishlist(itemId)}
+												>
+													<DeleteFilled className="md:text-xl" />{" "}
+													<p className="font-semibold">Remove</p>
+												</button>
 											</div>
 										</div>
 									</div>

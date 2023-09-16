@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -6,7 +6,7 @@ import {
 	fetchProductsByCategory,
 } from "../redux/slice/products";
 import { Card, List, Typography, Button, message, Skeleton, Badge } from "antd";
-import { HeartFilled, StarFilled } from "@ant-design/icons";
+import { HeartFilled, ShoppingFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -135,11 +135,10 @@ function ProductList() {
 																marginBottom: 0,
 															}}
 														>
-															Price: ${product.price}{" "}
 															<Typography.Text
 																delete
 																type="secondary"
-																style={{ marginLeft: "8px" }}
+																style={{ marginRight: "8px" }}
 															>
 																$
 																{parseFloat(
@@ -149,6 +148,7 @@ function ProductList() {
 																			100
 																).toFixed(2)}
 															</Typography.Text>
+															${product.price}{" "}
 														</Typography.Paragraph>
 													</div>
 													<div
@@ -180,26 +180,22 @@ function ProductList() {
 														marginTop: "8px",
 													}}
 												>
-													<Button
-														type="default"
+													<button
+														className="cursor-pointer bg-orange-500 hover:bg-opacity-80 text-white rounded-md px-1 md:px-3 md:py-2 w-11/12 flex flex-row gap-1 justify-center items-center"
 														onClick={() => handleAddToCart(product)}
-														style={{
-															display: "flex",
-															flex: 1,
-															width: "80%",
-															alignItems: "center",
-															justifyContent: "center",
-														}}
 													>
-														Add to Cart{" "}
-														{cart[product.id] && cart[product.id] > 0 && (
-															<span style={{ marginLeft: "8px" }}>
-																({cart[product.id]})
-															</span>
-														)}
-													</Button>
+														<ShoppingFilled className="md:text-xl" />{" "}
+														<p className="font-semibold">
+															Add to Cart
+															{cart[product.id] && cart[product.id] > 0 && (
+																<span style={{ marginLeft: "8px" }}>
+																	({cart[product.id]})
+																</span>
+															)}
+														</p>
+													</button>
 
-													<Button
+													<button
 														onClick={() => handleAddtoWishList(product)}
 														alt="Add to Wishlist"
 														style={{
@@ -210,10 +206,10 @@ function ProductList() {
 																? "red" // If the item is in the wishlist, set color to red
 																: "", // Otherwise, leave it empty to use the default color
 														}}
-														className="group"
+														className="group bg-orange-500 hover:bg-opacity-80 text-white text-xl rounded-md px-1 md:px-3 md:py-2"
 													>
 														<HeartFilled className="text-current transition-colors group-hover:text-red-500" />
-													</Button>
+													</button>
 												</div>
 											</div>
 										}

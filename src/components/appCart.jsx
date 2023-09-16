@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import {
-	Badge,
-	Drawer,
-	List,
-	InputNumber,
-	Button,
-	Typography,
-	Card,
-} from "antd";
+	ArrowRightOutlined,
+	DeleteFilled,
+	MinusOutlined,
+	PlusOutlined,
+	ShoppingCartOutlined,
+} from "@ant-design/icons";
+import { Badge, Drawer, List, Typography, Card } from "antd";
 
-import { removeFromCart, updateCartItemCount } from "../redux/slice/cart";
+import {
+	addToCart,
+	removeFromCart,
+	updateCartItemCount,
+} from "../redux/slice/cart";
 
 function AppCart() {
 	const cart = useSelector((state) => state.cart.data);
@@ -23,21 +25,26 @@ function AppCart() {
 		dispatch(removeFromCart(itemId));
 	};
 
-	const handleUpdateItemCount = (newAmount, itemId) => {
-		dispatch(updateCartItemCount({ itemId, newAmount }));
+	const handleUpdateItemCount = (itemId, action) => {
+		if (action === "increment") {
+			dispatch(addToCart(itemId)); // Increment the quantity
+		} else if (action === "decrement" && cart[itemId] > 1) {
+			dispatch(updateCartItemCount({ itemId, newAmount: cart[itemId] - 1 })); // Decrement the quantity
+		} else if (action === "decrement" && cart[itemId] === 1) {
+			dispatch(removeFromCart(itemId)); // Remove the item from the cart if the quantity is 1
+		}
+	};
 
-		// Calculate the total price for this product
+	const getCartItemTotal = (itemId) => {
 		const productInfo = products.products.find(
 			(product) => product.id === Number(itemId)
 		);
 
 		if (productInfo && productInfo.price) {
-			const totalPrice = newAmount * parseFloat(productInfo.price);
-
-			// You can store this total price in the Redux store if needed
-			// or use it directly in your component
-			console.log(`Total Price for item ${itemId}: $${totalPrice}`);
+			return cart[itemId] * parseFloat(productInfo.price);
 		}
+
+		return 0;
 	};
 
 	const getTotalCartAmount = () => {
@@ -46,17 +53,12 @@ function AppCart() {
 		if (products && cart) {
 			for (const itemId in cart) {
 				if (cart[itemId] > 0) {
-					const itemInfo = products.products.find(
-						(product) => product.id === Number(itemId)
-					);
-					if (itemInfo && itemInfo.price) {
-						totalAmount += cart[itemId] * parseInt(itemInfo.price);
-					}
+					totalAmount += getCartItemTotal(itemId);
 				}
 			}
 		}
 
-		return totalAmount;
+		return totalAmount.toFixed(2); // Ensure the total amount is formatted with two decimal places.
 	};
 
 	const getTotalCartQuantity = () => {
@@ -143,7 +145,7 @@ function AppCart() {
 															flex: 1,
 														}}
 													>
-														<h3 style={{ marginTop: "0", paddingTop: "0" }}>
+														<h3 className=" mt-0 pt-0 font-semibold">
 															{productInfo.title}
 														</h3>
 													</div>
@@ -153,9 +155,8 @@ function AppCart() {
 															textAlign: "right",
 														}}
 													>
-														<p style={{ marginTop: "0", paddingTop: "0" }}>
-															Total: $
-															{cart[itemId] * parseFloat(productInfo.price)}
+														<p className=" mt-0 pt-0 font-semibold">
+															Total: ${getCartItemTotal(itemId).toFixed(2)}
 														</p>
 													</div>
 												</div>
@@ -164,24 +165,39 @@ function AppCart() {
 													style={{
 														display: "flex",
 														justifyContent: "space-between",
+														alignItems: "center",
 													}}
 												>
-													<div>
-														<InputNumber
-															min={1}
-															value={cart ? cart[itemId] : 0}
-															onChange={(value) =>
-																handleUpdateItemCount(value, itemId)
-															}
-														/>
+													<div className="flex flex-row w-2/5 md:w-1/4 justify-between py-2">
+														<div className="cursor-pointer border-slate-200 border-2 rounded-md px-1 hover:opacity-60 transition-opacity duration-[0.3s] ">
+															{/* Replace the custom minus icon with Ant Design MinusOutlined */}
+															<MinusOutlined
+																onClick={() =>
+																	handleUpdateItemCount(itemId, "decrement")
+																}
+															/>
+														</div>
+
+														<p className="text-black font-bold text-sm text-center">
+															{cart[itemId]}
+														</p>
+														<div className="cursor-pointer border-slate-200 border-2 rounded-md px-1 hover:opacity-60 transition-opacity duration-[0.3s] ">
+															{/* Replace the custom plus icon with Ant Design PlusOutlined */}
+															<PlusOutlined
+																onClick={() =>
+																	handleUpdateItemCount(itemId, "increment")
+																}
+															/>
+														</div>
 													</div>
 													<div>
-														<Button
-															type="danger"
+														<button
 															onClick={() => handleRemoveFromCart(itemId)}
+															className="items-center flex flex-row gap-1"
 														>
-															Remove
-														</Button>
+															<DeleteFilled className="text-2xl" />{" "}
+															<p>Remove</p>
+														</button>
 													</div>
 												</div>
 											</div>
@@ -195,10 +211,14 @@ function AppCart() {
 					<Typography.Text>Cart is empty</Typography.Text>
 				)}
 
-				{/* "Proceed to checkout" button */}
+				{/* Subtotal */}
 				{getTotalCartQuantity() > 0 && (
-					<div style={{ textAlign: "center", marginTop: "16px" }}>
-						<Button type="secondary">Proceed to checkout</Button>
+					<div className="text-center">
+						<p className="font-semibold">Subtotal: ${getTotalCartAmount()}</p>
+						<button className=" bg-orange-600 text-white font-semibold px-8 py-2 items-center hover:bg-opacity-75 rounded-md self-center text-center mt-3">
+							Proceed to checkout{" "}
+							<ArrowRightOutlined className="font-semibold" />
+						</button>
 					</div>
 				)}
 			</Drawer>
