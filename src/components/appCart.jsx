@@ -192,7 +192,7 @@ function AppCart() {
 													</div>
 													<div>
 														<button
-															className="cursor-pointer bg-slate-800 hover:bg-opacity-90 text-white rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
+															className="cursor-pointer border-slate-300 border-2 rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
 															onClick={() => handleRemoveFromCart(itemId)}
 														>
 															<DeleteFilled className="md:text-xl" />{" "}

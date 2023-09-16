@@ -21,7 +21,7 @@ const headerStyle = {
 	justifyContent: "space-between",
 	alignItems: "center",
 	zIndex: 99,
-	paddingBottom: "48px",
+	paddingBottom: "36px",
 	borderBottom: "1px solid #ccc",
 };
 const contentStyle = {
@@ -73,7 +73,7 @@ function App() {
 
 					<Content
 						style={contentStyle}
-						className="flex flex-col justify-center items-center px-4 pt-5 md:px-24 md:pt-12"
+						className="flex flex-col justify-center items-center px-4 md:px-24 md: pt-12"
 					>
 						<div className="md:hidden pb-10">
 							<AppMenu />

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
 	fetchProducts,
 	fetchProductsByCategory,
@@ -85,10 +85,12 @@ function ProductList() {
 									>
 										<Card
 											cover={
-												<img
-													src="/assets/image-placeholder-vertical.jpg"
-													alt={product.title}
-												/>
+												<Link to={`/productdetails/${product.id}`}>
+													<img
+														src="/assets/image-placeholder-vertical.jpg"
+														alt={product.title}
+													/>
+												</Link>
 											}
 											bodyStyle={{ padding: "0" }}
 										/>
