@@ -10,6 +10,8 @@ import WishList from "./components/wishList";
 import UserLogReg from "./components/userLogReg";
 import AppLogo from "./components/logo";
 
+import AppFooter from "./components/appFooter";
+
 const headerStyle = {
 	textAlign: "center",
 	color: "black",
@@ -80,7 +82,9 @@ function App() {
 						</div>
 						<PageContent />
 					</Content>
-					<Footer style={footerStyle}>Footer</Footer>
+					<Footer style={footerStyle}>
+						<AppFooter />
+					</Footer>
 				</BrowserRouter>
 			</Layout>
 		</div>
