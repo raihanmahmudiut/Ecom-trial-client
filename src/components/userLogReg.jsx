@@ -1,9 +1,19 @@
 import { UserAddOutlined } from "@ant-design/icons";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function UserLogReg() {
+	const navigate = useNavigate();
+
+	const onUserClick = () => {
+		navigate(`/login`);
+	};
 	return (
-		<div>
+		<div
+			onClick={() => {
+				onUserClick();
+			}}
+		>
 			<UserAddOutlined className=" text-lg md:text-3xl cursor-pointer" />
 		</div>
 	);

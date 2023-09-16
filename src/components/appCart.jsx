@@ -81,7 +81,7 @@ function AppCart() {
 				count={getTotalCartQuantity()}
 				onClick={() => setCartDrawerOpen(true)}
 			>
-				<ShoppingCartOutlined className="text-lg md:text-3xl cursor-pointer" />
+				<ShoppingCartOutlined className="text-lg text-white md:text-3xl cursor-pointer" />
 			</Badge>
 			<Drawer
 				maskClosable
@@ -192,11 +192,11 @@ function AppCart() {
 													</div>
 													<div>
 														<button
+															className="cursor-pointer bg-slate-800 hover:bg-opacity-90 text-white rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
 															onClick={() => handleRemoveFromCart(itemId)}
-															className="items-center flex flex-row gap-1"
 														>
-															<DeleteFilled className="text-2xl" />{" "}
-															<p>Remove</p>
+															<DeleteFilled className="md:text-xl" />{" "}
+															<p className="font-semibold">Remove</p>
 														</button>
 													</div>
 												</div>
@@ -215,7 +215,7 @@ function AppCart() {
 				{getTotalCartQuantity() > 0 && (
 					<div className="text-center">
 						<p className="font-semibold">Subtotal: ${getTotalCartAmount()}</p>
-						<button className=" bg-orange-600 text-white font-semibold px-8 py-2 items-center hover:bg-opacity-75 rounded-md self-center text-center mt-3">
+						<button className=" bg-slate-800 text-white font-semibold px-8 py-2 items-center hover:bg-opacity-90 rounded-md self-center text-center mt-3">
 							Proceed to checkout{" "}
 							<ArrowRightOutlined className="font-semibold" />
 						</button>

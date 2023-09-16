@@ -6,7 +6,12 @@ import {
 	fetchProductsByCategory,
 } from "../redux/slice/products";
 import { Card, List, Typography, Button, message, Skeleton, Badge } from "antd";
-import { HeartFilled, ShoppingFilled, StarFilled } from "@ant-design/icons";
+import {
+	HeartFilled,
+	HeartOutlined,
+	ShoppingFilled,
+	StarFilled,
+} from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -69,6 +74,7 @@ function ProductList() {
 									display: "flex",
 									flexDirection: "column",
 									maxWidth: "300px",
+
 									textAlign: "center",
 								}}
 							>
@@ -181,7 +187,7 @@ function ProductList() {
 													}}
 												>
 													<button
-														className="cursor-pointer bg-orange-500 hover:bg-opacity-80 text-white rounded-md px-1 md:px-3 md:py-2 w-11/12 flex flex-row gap-1 justify-center items-center"
+														className="cursor-pointer border-slate-300 border-2 bg-gray hover:bg-opacity-80 text-slate-800 rounded-md px-1 md:px-3 md:py-2 w-11/12 flex flex-row gap-1 justify-center items-center"
 														onClick={() => handleAddToCart(product)}
 													>
 														<ShoppingFilled className="md:text-xl" />{" "}
@@ -206,9 +212,9 @@ function ProductList() {
 																? "red" // If the item is in the wishlist, set color to red
 																: "", // Otherwise, leave it empty to use the default color
 														}}
-														className="group bg-orange-500 hover:bg-opacity-80 text-white text-xl rounded-md px-1 md:px-3 md:py-2"
+														className="bg-slate-800 border-slate-800 border-2 text-white rounded-full px-1 md:px-3 md:py-2"
 													>
-														<HeartFilled className="text-current transition-colors group-hover:text-red-500" />
+														<HeartFilled />
 													</button>
 												</div>
 											</div>

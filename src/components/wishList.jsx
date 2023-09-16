@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DeleteFilled, HeartOutlined, ShoppingFilled } from "@ant-design/icons";
-import { Button, Card, List, Typography, Drawer, Badge, message } from "antd";
+import { Card, List, Typography, Drawer, Badge, message } from "antd";
 import { addToCart } from "../redux/slice/cart";
 import { removeFromWishlist } from "../redux/slice/wish";
 
@@ -27,9 +27,13 @@ function Wishlist() {
 
 	return (
 		<div>
-			<Badge count={getWishlistItemCount()}>
+			<Badge
+				count={getWishlistItemCount()}
+				color="black"
+				className="text-black"
+			>
 				<HeartOutlined
-					className="text-lg md:text-3xl cursor-pointer"
+					className="text-lg text-white md:text-3xl cursor-pointer"
 					onClick={() => setWishlistDrawerOpen(true)}
 				/>
 			</Badge>
@@ -107,14 +111,14 @@ function Wishlist() {
 												}}
 											>
 												<button
-													className="cursor-pointer border-slate-300 border-2 rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
+													className="cursor-pointer bg-slate-800 hover:bg-opacity-90 text-white rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
 													onClick={() => handleAddToCart(itemId)}
 												>
 													<ShoppingFilled className="md:text-xl" />{" "}
 													<p className="font-semibold">Add to Cart</p>
 												</button>
 												<button
-													className="cursor-pointer border-slate-300 border-2 rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
+													className="cursor-pointer bg-slate-800 hover:bg-opacity-90 text-white rounded-md px-1 md:px-2 md:py-1  flex flex-row gap-1 items-center"
 													onClick={() => handleRemoveFromWishlist(itemId)}
 												>
 													<DeleteFilled className="md:text-xl" />{" "}

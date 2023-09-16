@@ -12,7 +12,7 @@ function AppMenu() {
 	return (
 		<div>
 			<Menu
-				className="border-none text-md md:text-base"
+				className="border-none text-md md:text-base bg-slate-900 text-white"
 				mode="horizontal"
 				onClick={onMenuClick}
 				disabledOverflow={true}

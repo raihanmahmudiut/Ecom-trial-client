@@ -13,11 +13,11 @@ import AppLogo from "./components/logo";
 const headerStyle = {
 	textAlign: "center",
 	color: "black",
-	height: 64,
-	padding: 50,
+
+	padding: 35,
 
 	lineHeight: "64px",
-	backgroundColor: "#fff",
+
 	justifyContent: "space-between",
 	alignItems: "center",
 	zIndex: 99,
@@ -49,7 +49,7 @@ function App() {
 				<BrowserRouter>
 					<Header
 						style={headerStyle}
-						className="flex flex-row justify-between items-center md:px-24 w-full h-30 md:h-24 md:p-12"
+						className="flex flex-row justify-between items-center w-full h-15 md:h-12 "
 					>
 						<div>
 							<AppLogo />
@@ -63,6 +63,7 @@ function App() {
 								flexDirection: "row",
 								gap: "8px",
 							}}
+							className="bg-slate-900 text-white"
 						>
 							<WishList />
 							<AppCart />
