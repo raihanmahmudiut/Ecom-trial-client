@@ -1,9 +1,9 @@
 import ProductList from "../../components/productList";
 
-function Home() {
+function Home(searchQuery) {
 	return (
 		<div>
-			<ProductList />
+			<ProductList searchQuery={searchQuery} />
 		</div>
 	);
 }

@@ -1,5 +1,7 @@
 import AppMenu from "./components/appMenu";
 import { Layout } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+
 const { Header, Footer, Content } = Layout;
 import { BrowserRouter } from "react-router-dom";
 import AppCart from "./components/appCart";
@@ -11,6 +13,8 @@ import UserLogReg from "./components/userLogReg";
 import AppLogo from "./components/logo";
 
 import AppFooter from "./components/appFooter";
+import SearchInput from "./components/searchInput";
+import { useState } from "react";
 
 const headerStyle = {
 	textAlign: "center",
@@ -45,20 +49,26 @@ const footerStyle = {
 };
 
 function App() {
+	const [searchQuery, setSearchQuery] = useState("");
+
+	// Function to handle search
+	const handleSearch = (query) => {
+		setSearchQuery(query);
+	};
+
 	return (
 		<div className=" w-max-screen">
 			<Layout>
 				<BrowserRouter>
 					<Header
 						style={headerStyle}
-						className="flex flex-row justify-between items-center w-full h-15 md:h-12 "
+						className="flex flex-row justify-between items-center w-full h-15 md:h-12 rounded-ee-md "
 					>
-						<div>
+						<div className="flex flex-row space-x-3">
+							<AppMenu />
 							<AppLogo />
 						</div>
-						<div className="hidden md:block w-full">
-							<AppMenu />
-						</div>
+
 						<div
 							style={{
 								display: "flex",
@@ -75,12 +85,9 @@ function App() {
 
 					<Content
 						style={contentStyle}
-						className="flex flex-col justify-center items-center px-4 md:px-24 md: pt-12"
+						className="flex justify-center items-center px-4 md:px-24 md: pt-12"
 					>
-						<div className="md:hidden pb-10">
-							<AppMenu />
-						</div>
-						<PageContent />
+						<PageContent searchQuery={searchQuery} />
 					</Content>
 					<Footer style={footerStyle}>
 						<AppFooter />

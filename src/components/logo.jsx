@@ -11,7 +11,7 @@ function AppLogo() {
 	return (
 		<div className="bg-slate-900 text-white">
 			<HomeFilled
-				className="text-lg md:text-3xl cursor-pointer"
+				className="text-lg md:text-xl cursor-pointer"
 				onClick={() => {
 					onHomeClick();
 				}}

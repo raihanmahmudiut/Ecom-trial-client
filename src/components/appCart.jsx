@@ -81,7 +81,7 @@ function AppCart() {
 				count={getTotalCartQuantity()}
 				onClick={() => setCartDrawerOpen(true)}
 			>
-				<ShoppingCartOutlined className="text-lg text-white md:text-3xl cursor-pointer" />
+				<ShoppingCartOutlined className="text-lg text-white md:text-xl cursor-pointer" />
 			</Badge>
 			<Drawer
 				maskClosable

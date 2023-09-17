@@ -14,7 +14,7 @@ function UserLogReg() {
 				onUserClick();
 			}}
 		>
-			<UserAddOutlined className=" text-lg md:text-3xl cursor-pointer" />
+			<UserAddOutlined className=" text-lg md:text-xl cursor-pointer" />
 		</div>
 	);
 }

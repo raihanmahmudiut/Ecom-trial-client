@@ -5,18 +5,14 @@ import {
 	fetchProducts,
 	fetchProductsByCategory,
 } from "../redux/slice/products";
-import { Card, List, Typography, Button, message, Skeleton, Badge } from "antd";
-import {
-	HeartFilled,
-	HeartOutlined,
-	ShoppingFilled,
-	StarFilled,
-} from "@ant-design/icons";
+import { Card, List, Typography, message, Skeleton, Badge } from "antd";
+import { HeartFilled, ShoppingFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
 import { addToCart } from "../redux/slice/cart";
 import { toggleWishlist } from "../redux/slice/wish";
+import WishlistHeartIcon from "./WishListheartIcon";
 
 function ProductList() {
 	const dispatch = useDispatch();
@@ -60,7 +56,7 @@ function ProductList() {
 			) : state && state.products ? (
 				<List
 					grid={{
-						gutter: [24, 24],
+						gutter: [48, 48],
 						xs: 1,
 						sm: 2,
 						md: 3,
@@ -87,8 +83,9 @@ function ProductList() {
 											cover={
 												<Link to={`/productdetails/${product.id}`}>
 													<img
-														src="/assets/image-placeholder-vertical.jpg"
+														src={product.thumbnail}
 														alt={product.title}
+														className=" object-contain w-72 h-96"
 													/>
 												</Link>
 											}
@@ -204,19 +201,18 @@ function ProductList() {
 													</button>
 
 													<button
-														onClick={() => handleAddtoWishList(product)}
 														alt="Add to Wishlist"
 														style={{
 															display: "flex",
 															alignItems: "center",
 															justifyContent: "center",
-															color: isItemInWishlist(product.id)
-																? "red" // If the item is in the wishlist, set color to red
-																: "", // Otherwise, leave it empty to use the default color
 														}}
-														className="bg-slate-800 border-slate-800 border-2 text-white rounded-full px-1 md:px-3 md:py-2"
+														className=" border-slate-300 border-2 text-white rounded-md px-1 md:px-3"
 													>
-														<HeartFilled />
+														<WishlistHeartIcon
+															inWishlist={isItemInWishlist(product.id)}
+															onClick={() => handleAddtoWishList(product)}
+														/>
 													</button>
 												</div>
 											</div>

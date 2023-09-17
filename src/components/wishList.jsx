@@ -11,14 +11,25 @@ function Wishlist() {
 	const dispatch = useDispatch();
 	const [wishlistDrawerOpen, setWishlistDrawerOpen] = useState(false);
 
-	const handleAddToCart = (product) => {
-		dispatch(addToCart(product.id));
-		message.success(`"${product.title}" added to cart`);
+	const handleAddToCart = (itemId) => {
+		const productInfo = products.products.find(
+			(product) => product.id === Number(itemId)
+		);
+
+		if (productInfo) {
+			dispatch(addToCart(Number(itemId)));
+			message.success(`"${productInfo.title}" added to cart`);
+		} else {
+			message.error("Product not found");
+		}
 	};
 
 	const handleRemoveFromWishlist = (itemId) => {
+		const productInfo = products.products.find(
+			(product) => product.id === Number(itemId)
+		);
 		dispatch(removeFromWishlist(itemId));
-		message.success(`Item removed from wishlist`);
+		message.success(`"${productInfo.title}" removed from wishlist`);
 	};
 
 	const getWishlistItemCount = () => {
@@ -33,7 +44,7 @@ function Wishlist() {
 				className="text-black"
 			>
 				<HeartOutlined
-					className="text-lg text-white md:text-3xl cursor-pointer"
+					className="text-lg text-white md:text-xl cursor-pointer"
 					onClick={() => setWishlistDrawerOpen(true)}
 				/>
 			</Badge>

@@ -25,11 +25,23 @@ export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
 	return response.json();
 });
 
+export const searchProducts = createAsyncThunk(
+	"searchProducts",
+	async (searchQuery) => {
+		const response = await fetch(
+			`https://dummyjson.com/products/search?q=${searchQuery}`
+		);
+		return response.json();
+	}
+);
+
 const productsSlice = createSlice({
 	name: "products",
 	initialState: {
 		isLoading: false,
 		data: null,
+		productById: null,
+		searchResults: null,
 		isError: false,
 	},
 	extraReducers: (builder) => {
@@ -64,9 +76,22 @@ const productsSlice = createSlice({
 		});
 		builder.addCase(fetchProductById.fulfilled, (state, action) => {
 			state.isLoading = false;
-			state.data = action.payload;
+			state.productById = action.payload; // Update the productById field
 		});
 		builder.addCase(fetchProductById.rejected, (state, action) => {
+			console.log("Error", action.payload);
+			state.isError = true;
+		});
+
+		// Add extraReducers for searchProducts
+		builder.addCase(searchProducts.pending, (state) => {
+			state.isLoading = true;
+		});
+		builder.addCase(searchProducts.fulfilled, (state, action) => {
+			state.isLoading = false;
+			state.searchResults = action.payload; // Update the searchResults field
+		});
+		builder.addCase(searchProducts.rejected, (state, action) => {
 			console.log("Error", action.payload);
 			state.isError = true;
 		});

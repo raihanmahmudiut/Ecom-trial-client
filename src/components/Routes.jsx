@@ -4,11 +4,14 @@ import Home from "../Pages/Home/home";
 import LoginRegistraion from "../Pages/UserLogin/LogReg";
 import ProductDetails from "./ProductDetails";
 
-function AppRoutes() {
+function AppRoutes(searchQuery) {
 	return (
 		<Routes>
-			<Route path="/" element={<Home />}></Route>
-			<Route path="/:categoryId" element={<Category />}></Route>
+			<Route path="/" element={<Home searchQuery={searchQuery} />}></Route>
+			<Route
+				path="/:categoryId"
+				element={<Category searchQuery={searchQuery} />}
+			></Route>
 			<Route path="/login" element={<LoginRegistraion />}></Route>
 			<Route path="/productdetails/:productId" element={<ProductDetails />} />
 		</Routes>
