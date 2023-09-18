@@ -4,7 +4,7 @@ import Home from "../Pages/Home/home";
 import LoginRegistraion from "../Pages/UserLogin/LogReg";
 import ProductDetails from "./ProductDetails";
 
-function AppRoutes(searchQuery) {
+function AppRoutes({ searchQuery }) {
 	return (
 		<Routes>
 			<Route path="/" element={<Home searchQuery={searchQuery} />}></Route>

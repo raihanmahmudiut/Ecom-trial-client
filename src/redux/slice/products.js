@@ -41,7 +41,7 @@ const productsSlice = createSlice({
 		isLoading: false,
 		data: null,
 		productById: null,
-		searchResults: null,
+
 		isError: false,
 	},
 	extraReducers: (builder) => {
@@ -89,10 +89,10 @@ const productsSlice = createSlice({
 		});
 		builder.addCase(searchProducts.fulfilled, (state, action) => {
 			state.isLoading = false;
-			state.searchResults = action.payload; // Update the searchResults field
+			state.data = action.payload;
 		});
 		builder.addCase(searchProducts.rejected, (state, action) => {
-			console.log("Error", action.payload);
+			state.isLoading = false;
 			state.isError = true;
 		});
 	},

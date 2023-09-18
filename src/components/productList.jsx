@@ -4,9 +4,10 @@ import { Link, useParams } from "react-router-dom";
 import {
 	fetchProducts,
 	fetchProductsByCategory,
+	searchProducts,
 } from "../redux/slice/products";
 import { Card, List, Typography, message, Skeleton, Badge } from "antd";
-import { HeartFilled, ShoppingFilled, StarFilled } from "@ant-design/icons";
+import { ShoppingFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -14,7 +15,7 @@ import { addToCart } from "../redux/slice/cart";
 import { toggleWishlist } from "../redux/slice/wish";
 import WishlistHeartIcon from "./WishListheartIcon";
 
-function ProductList() {
+function ProductList({ searchQuery }) {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.products.data);
 	const cart = useSelector((state) => state.cart.data);
@@ -24,12 +25,17 @@ function ProductList() {
 	const { categoryId } = useParams();
 
 	useEffect(() => {
-		if (categoryId) {
+		if (searchQuery) {
+			// If there's a search query, fetch products based on the query
+			dispatch(searchProducts(searchQuery));
+		} else if (categoryId) {
+			// If there's a category ID, fetch products by category
 			dispatch(fetchProductsByCategory(categoryId));
 		} else {
+			// Otherwise, fetch all products
 			dispatch(fetchProducts());
 		}
-	}, [dispatch, categoryId]);
+	}, [dispatch, categoryId, searchQuery]);
 
 	const handleAddToCart = (product) => {
 		dispatch(addToCart(product.id));

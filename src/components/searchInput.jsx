@@ -1,22 +1,23 @@
-import { useState } from "react";
+import React from "react";
+import { Input } from "antd";
+import { AudioOutlined } from "@ant-design/icons";
+
+const { Search } = Input;
 
 function SearchInput({ onSearch }) {
-	const [searchQuery, setSearchQuery] = useState("");
-
-	const handleSearch = () => {
-		onSearch(searchQuery);
+	const handleSearch = (value) => {
+		onSearch(value);
 	};
 
 	return (
-		<div>
-			<input
-				type="text"
-				placeholder="Search products"
-				value={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
+		<div className=" flex item-center justify-center">
+			<Search
+				placeholder="Search products..."
+				enterButton
+				allowClear
+				suffix={<AudioOutlined />}
+				onSearch={handleSearch}
 			/>
-			<button onClick={handleSearch}>Search</button>
-			<button onClick={() => setSearchQuery("")}>Clear</button>
 		</div>
 	);
 }

@@ -1,6 +1,5 @@
 import AppMenu from "./components/appMenu";
 import { Layout } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
 
 const { Header, Footer, Content } = Layout;
 import { BrowserRouter } from "react-router-dom";
@@ -20,8 +19,7 @@ const headerStyle = {
 	textAlign: "center",
 	color: "black",
 
-	padding: 35,
-
+	padding: 32,
 	lineHeight: "64px",
 
 	justifyContent: "space-between",
@@ -62,13 +60,14 @@ function App() {
 				<BrowserRouter>
 					<Header
 						style={headerStyle}
-						className="flex flex-row justify-between items-center w-full h-15 md:h-12 rounded-ee-md "
+						className="flex flex-row justify-between items-center w-full h-15 md:h-12 rounded-bl-md rounded-br-md "
 					>
 						<div className="flex flex-row space-x-3">
 							<AppMenu />
 							<AppLogo />
 						</div>
-
+						{/* the SearchInput component */}
+						<SearchInput onSearch={handleSearch} />
 						<div
 							style={{
 								display: "flex",

@@ -1,6 +1,6 @@
 import ProductList from "../../components/productList";
 
-function Home(searchQuery) {
+function Home({ searchQuery }) {
 	return (
 		<div>
 			<ProductList searchQuery={searchQuery} />
