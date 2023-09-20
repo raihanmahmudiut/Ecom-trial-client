@@ -11,10 +11,15 @@ const LoginRegistration = () => {
 	};
 
 	return (
-		<Card title={isLoginForm ? "Login" : "Registration"}>
+		<Card
+			title={isLoginForm ? "Login" : "Registration"}
+			style={{ textAlign: "center", gap: "20px" }}
+		>
 			{isLoginForm ? <LoginForm /> : <RegistrationForm />}
 			<Button onClick={handleToggle}>
-				{isLoginForm ? "Switch to Registration" : "Switch to Login"}
+				{isLoginForm
+					? "Not registered? Create an account"
+					: "Already registered? Sign in instead"}
 			</Button>
 		</Card>
 	);

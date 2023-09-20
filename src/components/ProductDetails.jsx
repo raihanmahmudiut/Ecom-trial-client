@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchProductById } from "../redux/slice/products";
@@ -17,6 +17,17 @@ import WishlistHeartIcon from "./WishListheartIcon";
 function ProductDetails() {
 	const { productId } = useParams();
 	const dispatch = useDispatch();
+	const [selectedQuantity, setSelectedQuantity] = useState(1);
+
+	const handleIncrement = () => {
+		setSelectedQuantity(selectedQuantity + 1);
+	};
+
+	const handleDecrement = () => {
+		if (selectedQuantity > 1) {
+			setSelectedQuantity(selectedQuantity - 1);
+		}
+	};
 
 	// Fetch product data from Redux store
 	const product = useSelector((state) => state.products.productById);
@@ -26,6 +37,7 @@ function ProductDetails() {
 
 	const handleAddToCart = () => {
 		dispatch(addToCart(productId)); // Pass productId instead of the entire product
+
 		message.success(`"${product.title}" added to cart`);
 	};
 
@@ -84,7 +96,7 @@ function ProductDetails() {
 	// Render the product details when available
 	return (
 		<div className="flex flex-col">
-			<div>
+			<div className="ml-20 font-semibold">
 				<Breadcrumb items={items} className="mb-8" />
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 bg-gradient-to-t from-white via-ace0f9 to-white py-10 rounded-lg">
@@ -112,7 +124,7 @@ function ProductDetails() {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col justify-between px-10 py-8 ">
+				<div className="flex flex-col justify-between px-10  py-8 ">
 					<h2 className="self-start text-slate-500 font-bold text-xl mb-4">
 						{product.brand}
 					</h2>
@@ -145,23 +157,31 @@ function ProductDetails() {
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-col md:flex-row gap-4 mt-8 justify-between items-center">
+					<div className="flex flex-col md:flex-row gap-4 mt-8 justify-start items-center">
 						{/* Left Div */}
-						<div className="grid grid-cols-3 w-full md:w-1/3 items-center box-border border-slate-300 border-2 rounded-md">
-							<div className="cursor-pointer text-black hover:opacity-60 transition-opacity duration-[0.3s] text-2xl font-bold">
+						{/* <div className="grid grid-cols-3 w-full md:w-1/4 items-center box-border border-slate-300 border-2 bg-cyan-300 rounded-md">
+							<div
+								className="cursor-pointer text-black text-center  text-2xl font-bold"
+								onClick={handleIncrement}
+							>
 								<PlusCircleFilled alt="" className="" />
 							</div>
-							<p className="text-black font-bold text-base text-center">1</p>
-							<div className="cursor-pointer text-black hover:opacity-60 transition-opacity duration-[0.3s] text-2xl font-bold">
+							<p className="text-black font-bold text-base text-center">
+								{selectedQuantity}
+							</p>
+							<div
+								className="cursor-pointer text-black text-center  text-2xl font-bold"
+								onClick={handleDecrement}
+							>
 								<MinusCircleFilled alt="" className="" />
 							</div>
-						</div>
+						</div> */}
 
 						{/* Right Div */}
 
-						<div className="flex flex-row w-full md:w-2/3 justify-between gap-4 h-9">
+						<div className="flex flex-row w-full md:w-1/3 justify-between gap-2 h-9">
 							<button
-								className="cursor-pointer w-11/12 border-slate-300 border-2  text-slate-800 rounded-md flex flex-row gap-1 justify-center items-center"
+								className="cursor-pointer w-11/12 border-slate-300 border-2 bg-gradient-to-r from-teal-300 to-indigo-400 text-slate-800 rounded-md flex flex-row gap-1 justify-center items-center"
 								onClick={() => handleAddToCart(product)}
 							>
 								<ShoppingFilled className="md:text-xl" />

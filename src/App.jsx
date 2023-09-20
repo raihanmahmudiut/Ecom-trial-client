@@ -17,33 +17,22 @@ import { useState } from "react";
 
 const headerStyle = {
 	textAlign: "center",
-
 	padding: 32,
 	lineHeight: "64px",
 	backgroundImage: "linear-gradient(to right, #243949 0%, #517fa4 100%)",
-
-	justifyContent: "space-between",
 	alignItems: "center",
-	zIndex: 99,
 	paddingBottom: "36px",
 	borderBottom: "1px solid #ccc",
 };
 const contentStyle = {
-	textAlign: "center",
-	justifyContent: "center",
-	alignItems: "center",
 	minHeight: 600,
 	lineHeight: "120px",
 	color: "black",
-
-	zIndex: 49,
 };
 
 const footerStyle = {
 	textAlign: "center",
 	color: "black",
-
-	zIndex: 49,
 };
 
 function App() {
@@ -87,7 +76,7 @@ function App() {
 
 					<Content
 						style={contentStyle}
-						className="flex justify-center items-center px-4 md:px-24 md: pt-12"
+						className="flex justify-center md:pt-12"
 					>
 						<PageContent searchQuery={searchQuery} />
 					</Content>

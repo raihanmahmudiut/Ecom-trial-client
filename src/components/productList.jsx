@@ -68,7 +68,7 @@ function ProductList({ searchQuery }) {
 	};
 
 	return (
-		<div className="">
+		<div>
 			{isLoading ? (
 				<Skeleton active />
 			) : state && state.products ? (

@@ -32,12 +32,13 @@ const LoginForm = () => {
 			}
 
 			const data = await response.json();
-
-			if (data.success) {
+			console.log(data);
+			if (response.status === 200) {
 				// The login was successful
 				// Dispatch the login action to update the Redux state
 				dispatch(login());
-				navigate("/home");
+				message.success("Login Successful");
+				navigate("/");
 			} else {
 				// The login was not successful
 				console.error("Login failed:", data.message);
@@ -68,7 +69,7 @@ const LoginForm = () => {
 				<Input.Password prefix={<LockOutlined />} placeholder="Password" />
 			</Form.Item>
 			<Form.Item>
-				<Button type="primary" htmlType="submit">
+				<Button type="default" htmlType="submit">
 					Login
 				</Button>
 			</Form.Item>

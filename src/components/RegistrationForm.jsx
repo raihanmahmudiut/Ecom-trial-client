@@ -40,6 +40,7 @@ const RegistrationForm = () => {
 					placeholder="Confirm Password"
 				/>
 			</Form.Item>
+
 			<Form.Item>
 				<Button type="primary" htmlType="submit">
 					Register
