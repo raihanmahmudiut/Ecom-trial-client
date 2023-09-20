@@ -9,7 +9,7 @@ function AppLogo() {
 	};
 
 	return (
-		<div className="bg-slate-900 text-white">
+		<div className=" text-white">
 			<HomeFilled
 				className="text-lg md:text-xl cursor-pointer"
 				onClick={() => {

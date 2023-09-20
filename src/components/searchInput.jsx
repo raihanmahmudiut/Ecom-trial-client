@@ -17,6 +17,7 @@ function SearchInput({ onSearch }) {
 				allowClear
 				suffix={<AudioOutlined />}
 				onSearch={handleSearch}
+				className=" w-48 md:w-72"
 			/>
 		</div>
 	);

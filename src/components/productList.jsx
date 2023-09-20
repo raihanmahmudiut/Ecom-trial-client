@@ -6,7 +6,15 @@ import {
 	fetchProductsByCategory,
 	searchProducts,
 } from "../redux/slice/products";
-import { Card, List, Typography, message, Skeleton, Badge } from "antd";
+import {
+	Card,
+	List,
+	Typography,
+	message,
+	Skeleton,
+	Badge,
+	Carousel,
+} from "antd";
 import { ShoppingFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
@@ -55,8 +63,12 @@ function ProductList({ searchQuery }) {
 		return Boolean(wishlist[productId]);
 	};
 
+	const onChange = (currentSlide) => {
+		console.log(currentSlide);
+	};
+
 	return (
-		<div>
+		<div className="">
 			{isLoading ? (
 				<Skeleton active />
 			) : state && state.products ? (
@@ -75,27 +87,34 @@ function ProductList({ searchQuery }) {
 								style={{
 									display: "flex",
 									flexDirection: "column",
-									maxWidth: "300px",
+									maxWidth: "280px",
 
 									textAlign: "center",
 								}}
 							>
 								<div className="flex-1">
-									<Badge.Ribbon
-										text={`${product.discountPercentage}% Off`}
-										color="red"
-									>
+									<Badge.Ribbon text={`${product.discountPercentage}% Off`}>
 										<Card
 											cover={
 												<Link to={`/productdetails/${product.id}`}>
-													<img
-														src={product.thumbnail}
-														alt={product.title}
-														className=" object-contain w-72 h-96"
-													/>
+													<Carousel afterChange={onChange}>
+														{product.images.map((image, index) => (
+															<div key={index}>
+																<img
+																	src={image} // Assuming image is the URL of the image
+																	alt={`Slide ${index + 1}`}
+																	className=" object-scale-down w-72 h-96"
+																/>
+															</div>
+														))}
+													</Carousel>
 												</Link>
 											}
 											bodyStyle={{ padding: "0" }}
+											style={{
+												backgroundImage:
+													"linear-gradient(to top, #fff1eb 0%, #ace0f9 1%)",
+											}}
 										/>
 									</Badge.Ribbon>
 								</div>
@@ -192,7 +211,7 @@ function ProductList({ searchQuery }) {
 													}}
 												>
 													<button
-														className="cursor-pointer border-slate-300 border-2 bg-gray hover:bg-opacity-80 text-slate-800 rounded-md px-1 md:px-3 md:py-2 w-11/12 flex flex-row gap-1 justify-center items-center"
+														className="cursor-pointer border-slate-300 border-2 bg-gradient-to-r from-teal-300 to-indigo-400 hover:bg-opacity-80 text-slate-800 rounded-md px-1 md:px-3 md:py-1 w-11/12 flex flex-row gap-1 justify-center items-center"
 														onClick={() => handleAddToCart(product)}
 													>
 														<ShoppingFilled className="md:text-xl" />{" "}
@@ -213,7 +232,7 @@ function ProductList({ searchQuery }) {
 															alignItems: "center",
 															justifyContent: "center",
 														}}
-														className=" border-slate-300 border-2 text-white rounded-md px-1 md:px-3"
+														className="  text-white rounded-md px-1 md:px-3"
 													>
 														<WishlistHeartIcon
 															inWishlist={isItemInWishlist(product.id)}

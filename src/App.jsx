@@ -17,10 +17,10 @@ import { useState } from "react";
 
 const headerStyle = {
 	textAlign: "center",
-	color: "black",
 
 	padding: 32,
 	lineHeight: "64px",
+	backgroundImage: "linear-gradient(to right, #243949 0%, #517fa4 100%)",
 
 	justifyContent: "space-between",
 	alignItems: "center",
@@ -35,14 +35,14 @@ const contentStyle = {
 	minHeight: 600,
 	lineHeight: "120px",
 	color: "black",
-	backgroundColor: "#fff",
+
 	zIndex: 49,
 };
 
 const footerStyle = {
 	textAlign: "center",
 	color: "black",
-	backgroundColor: "#fff",
+
 	zIndex: 49,
 };
 
@@ -55,17 +55,18 @@ function App() {
 	};
 
 	return (
-		<div className=" w-max-screen">
+		<div className="w-max-screen">
 			<Layout>
 				<BrowserRouter>
 					<Header
 						style={headerStyle}
-						className="flex flex-row justify-between items-center w-full h-15 md:h-12 rounded-bl-md rounded-br-md "
+						className="flex flex-row space-x-3 md:space-x-0 justify-between items-center w-full h-15 md:h-12 rounded-bl-md rounded-br-md "
 					>
 						<div className="flex flex-row space-x-3">
 							<AppMenu />
 							<AppLogo />
 						</div>
+
 						{/* the SearchInput component */}
 						<SearchInput onSearch={handleSearch} />
 						<div
@@ -73,8 +74,10 @@ function App() {
 								display: "flex",
 								flexDirection: "row",
 								gap: "8px",
+								justifyContent: "center",
+								alignItems: "center",
 							}}
-							className="bg-slate-900 text-white"
+							className=" text-white"
 						>
 							<WishList />
 							<AppCart />

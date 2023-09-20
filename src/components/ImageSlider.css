@@ -1,0 +1,25 @@
+/* ImageSlider.css */
+
+.image-slider {
+	display: flex;
+	overflow: hidden;
+	width: 300px; /* Adjust the width and height as needed */
+	height: 200px;
+}
+
+.image-slider img {
+	width: 100%;
+	height: 100%;
+	transition: transform 0.5s ease; /* Add sliding animation */
+}
+
+.image-slider.hovered img {
+	transform: translateX(-100%); /* Slide images to the left on hover */
+}
+
+/* Additional styling for the card, if needed */
+.image-slider.card {
+	border: 1px solid #ccc;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

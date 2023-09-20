@@ -90,6 +90,9 @@ function AppCart() {
 				zIndex={1000}
 				height={500}
 				width={500}
+				style={{
+					backgroundImage: "linear-gradient(to top, #a3bded 0%, #6991c7 100%)",
+				}}
 			>
 				{Object.keys(cart).length > 0 ? (
 					<List

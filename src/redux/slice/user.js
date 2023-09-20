@@ -1,44 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
-	try {
-		const response = await fetch("https://dummyjson.com/users");
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		throw error;
-	}
-});
+// userSlice.js
+import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
-	name: "users",
+	name: "user",
 	initialState: {
-		isLoading: false,
-		data: null,
-		isError: false,
-		errorMessage: "",
+		isLoggedIn: false,
 	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchUsers.pending, (state) => {
-			state.isLoading = true;
-			state.isError = false;
-			state.errorMessage = "";
-		});
-		builder.addCase(fetchUsers.fulfilled, (state, action) => {
-			state.isLoading = false;
-			state.data = action.payload;
-			state.isError = false;
-			state.errorMessage = "";
-		});
-		builder.addCase(fetchUsers.rejected, (state, action) => {
-			state.isLoading = false;
-			state.isError = true;
-			state.errorMessage = action.error.message || "An error occurred";
-		});
+	reducers: {
+		login: (state) => {
+			state.isLoggedIn = true;
+		},
+		logout: (state) => {
+			state.isLoggedIn = false;
+		},
 	},
 });
 
+export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
