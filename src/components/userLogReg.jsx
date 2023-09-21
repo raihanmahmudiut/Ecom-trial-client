@@ -1,9 +1,5 @@
-import {
-	LoginOutlined,
-	LogoutOutlined,
-	UserAddOutlined,
-} from "@ant-design/icons";
-import React from "react";
+import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/slice/user"; // Import your logout action
