@@ -44,7 +44,7 @@ function App() {
 	};
 
 	return (
-		<div className="w-max-screen">
+		<div className=" max-w-full">
 			<Layout>
 				<BrowserRouter>
 					<Header
@@ -74,10 +74,7 @@ function App() {
 						</div>
 					</Header>
 
-					<Content
-						style={contentStyle}
-						className="flex justify-center md:pt-12"
-					>
+					<Content style={contentStyle} className="flex justify-center pt-12">
 						<PageContent searchQuery={searchQuery} />
 					</Content>
 					<Footer style={footerStyle}>

@@ -6,27 +6,22 @@ import { fetchProductById } from "../redux/slice/products";
 import { addToCart } from "../redux/slice/cart";
 import { toggleWishlist } from "../redux/slice/wish";
 import { Breadcrumb, message } from "antd";
-import {
-	HeartFilled,
-	MinusCircleFilled,
-	PlusCircleFilled,
-	ShoppingFilled,
-} from "@ant-design/icons";
+import { ShoppingFilled } from "@ant-design/icons";
 import WishlistHeartIcon from "./WishListheartIcon";
+import LightBox from "./lightBox";
 
 function ProductDetails() {
 	const { productId } = useParams();
 	const dispatch = useDispatch();
-	const [selectedQuantity, setSelectedQuantity] = useState(1);
 
-	const handleIncrement = () => {
-		setSelectedQuantity(selectedQuantity + 1);
+	const [lightBoxImage, setLightBoxImage] = useState(null);
+
+	const openLightBox = (imageSrc) => {
+		setLightBoxImage(imageSrc);
 	};
 
-	const handleDecrement = () => {
-		if (selectedQuantity > 1) {
-			setSelectedQuantity(selectedQuantity - 1);
-		}
+	const closeLightBox = () => {
+		setLightBoxImage(null);
 	};
 
 	// Fetch product data from Redux store
@@ -108,6 +103,7 @@ function ProductDetails() {
 							src={product.thumbnail}
 							alt="product-main-img"
 							className="rounded-md cursor-pointer hover:bg-primary-orange"
+							onClick={() => openLightBox(product.thumbnail)}
 						/>
 					</div>
 					<div className="flex-row w-full pt-4 flex bg-white">
@@ -123,6 +119,9 @@ function ProductDetails() {
 							))}
 						</div>
 					</div>
+					{lightBoxImage && (
+						<LightBox imgSrc={lightBoxImage} onClose={closeLightBox} />
+					)}
 				</div>
 				<div className="flex flex-col justify-between px-10  py-8 ">
 					<h2 className="self-start text-slate-500 font-bold text-xl mb-4">
@@ -181,7 +180,7 @@ function ProductDetails() {
 
 						<div className="flex flex-row w-full md:w-1/3 justify-between gap-2 h-9">
 							<button
-								className="cursor-pointer w-11/12 border-slate-300 border-2 bg-gradient-to-r from-teal-300 to-indigo-400 text-slate-800 rounded-md flex flex-row gap-1 justify-center items-center"
+								className="cursor-pointer w-11/12 border-slate-300 border-2 text-slate-800 rounded-md flex flex-row gap-1 justify-center items-center"
 								onClick={() => handleAddToCart(product)}
 							>
 								<ShoppingFilled className="md:text-xl" />
@@ -213,6 +212,12 @@ function ProductDetails() {
 					</div>
 				</div>
 			</div>
+			{lightBoxImage && (
+				<div
+					className="fixed top-0 left-0 w-full h-full bg-black opacity-75 z-50"
+					onClick={closeLightBox}
+				/>
+			)}
 		</div>
 	);
 }

@@ -18,7 +18,7 @@ import {
 import { ShoppingFilled, StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
-
+import "./productList.css";
 import { addToCart } from "../redux/slice/cart";
 import { toggleWishlist } from "../redux/slice/wish";
 import WishlistHeartIcon from "./WishListheartIcon";
@@ -211,7 +211,7 @@ function ProductList({ searchQuery }) {
 													}}
 												>
 													<button
-														className="cursor-pointer border-slate-300 border-2 bg-gradient-to-r from-teal-300 to-indigo-400 hover:bg-opacity-80 text-slate-800 rounded-md px-1 md:px-3 md:py-1 w-11/12 flex flex-row gap-1 justify-center items-center"
+														className="cursor-pointer border-slate-300 border-2 bg-white hover:bg-opacity-80 text-slate-800 rounded-md px-1 md:px-3 md:py-1 w-11/12 flex flex-row gap-1 justify-center items-center"
 														onClick={() => handleAddToCart(product)}
 													>
 														<ShoppingFilled className="md:text-xl" />{" "}

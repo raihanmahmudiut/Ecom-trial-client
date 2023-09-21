@@ -1,4 +1,8 @@
-import { UserAddOutlined } from "@ant-design/icons";
+import {
+	LoginOutlined,
+	LogoutOutlined,
+	UserAddOutlined,
+} from "@ant-design/icons";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,10 +27,21 @@ function UserLogReg() {
 
 	return (
 		<div
-			className="bg-gradient-to-r from-teal-300 to-indigo-400 rounded-2xl w-20 h-8 flex justify-center items-center text-black font-bold"
+			className="bg-gradient-to-r from-teal-300 to-indigo-400 rounded-2xl w-24 h-8 flex justify-center items-center text-black font-bold"
 			onClick={onUserClick}
 		>
-			<button>{isLoggedIn ? "Sign out" : "Sign in"}</button>
+			<button>
+				{isLoggedIn ? (
+					<div className="flex flex-row gap-2 px-2 ">
+						<LogoutOutlined /> <p>Sign out</p>
+					</div>
+				) : (
+					<div className="flex flex-row gap-2 px-2 ">
+						<LoginOutlined />
+						<p>Sign in</p>
+					</div>
+				)}
+			</button>
 		</div>
 	);
 }
