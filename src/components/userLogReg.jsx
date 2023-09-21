@@ -32,11 +32,11 @@ function UserLogReg() {
 		>
 			<button>
 				{isLoggedIn ? (
-					<div className="flex flex-row gap-2 px-2 ">
+					<div className="flex flex-row gap-2 px-2">
 						<LogoutOutlined /> <p className="hidden md:block">Sign out</p>
 					</div>
 				) : (
-					<div className="flex flex-row gap-2 px-2 ">
+					<div className="flex flex-row gap-2 px-2">
 						<LoginOutlined />
 						<p className="hidden md:block">Sign in</p>
 					</div>
