@@ -27,18 +27,18 @@ function UserLogReg() {
 
 	return (
 		<div
-			className="bg-gradient-to-r from-teal-300 to-indigo-400 rounded-2xl w-24 h-8 flex justify-center items-center text-black font-bold"
+			className="bg-gradient-to-r from-teal-300 to-indigo-400 rounded-2xl w-auto md:w-24 h-8 text-xl flex justify-center items-center text-black font-bold"
 			onClick={onUserClick}
 		>
 			<button>
 				{isLoggedIn ? (
 					<div className="flex flex-row gap-2 px-2 ">
-						<LogoutOutlined /> <p>Sign out</p>
+						<LogoutOutlined /> <p className="hidden md:block">Sign out</p>
 					</div>
 				) : (
 					<div className="flex flex-row gap-2 px-2 ">
 						<LoginOutlined />
-						<p>Sign in</p>
+						<p className="hidden md:block">Sign in</p>
 					</div>
 				)}
 			</button>
