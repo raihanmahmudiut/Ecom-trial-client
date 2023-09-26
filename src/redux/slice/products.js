@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define the action creator for fetching products by category
 export const fetchProductsByCategory = createAsyncThunk(
 	"fetchProductsByCategory",
 	async (category) => {
-		const response = await fetch(
+		const response = await axios.get(
 			`https://dummyjson.com/products/category/${category}`
 		);
-		return response.json();
+		return response.data;
 	}
 );
 
@@ -15,23 +16,25 @@ export const fetchProductsByCategory = createAsyncThunk(
 export const fetchProductById = createAsyncThunk(
 	"fetchProductById",
 	async (productId) => {
-		const response = await fetch(`https://dummyjson.com/products/${productId}`);
-		return response.json();
+		const response = await axios.get(
+			`https://dummyjson.com/products/${productId}`
+		);
+		return response.data;
 	}
 );
 
 export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
-	const response = await fetch("https://dummyjson.com/products");
-	return response.json();
+	const response = await axios.get("https://dummyjson.com/products");
+	return response.data;
 });
 
 export const searchProducts = createAsyncThunk(
 	"searchProducts",
 	async (searchQuery) => {
-		const response = await fetch(
+		const response = await axios.get(
 			`https://dummyjson.com/products/search?q=${searchQuery}`
 		);
-		return response.json();
+		return response.data;
 	}
 );
 
