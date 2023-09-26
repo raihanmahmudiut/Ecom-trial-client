@@ -1,30 +1,44 @@
-// wishlistSlice.js
-
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-	data: {}, // You can use an object to store wishlist items with their IDs as keys
+const getWishFromLocalStorage = () => {
+	try {
+		const wishlistData = localStorage.getItem("wishlistData");
+		if (wishlistData) {
+			return JSON.parse(wishlistData);
+		}
+		return {};
+	} catch (error) {
+		console.error("Error loading wishlist data from localStorage:", error);
+		console.log("Corrupted wishlist data:", wishlistData); // Log the problematic data
+		// Optionally, you can clear the corrupted data from localStorage:
+		// localStorage.removeItem("wishlistData");
+		return {};
+	}
 };
 
 const wishlistSlice = createSlice({
 	name: "wishlist",
-	initialState,
+	initialState: {
+		data: getWishFromLocalStorage(),
+	},
 	reducers: {
 		addToWishlist: (state, action) => {
 			const itemId = action.payload;
-			state.data[itemId] = true; // Add the item to the wishlist
+			state.data[itemId] = true;
+			localStorage.setItem("wishlistData", JSON.stringify(state.data)); // Change the key here
 		},
 		removeFromWishlist: (state, action) => {
 			const itemId = action.payload;
-			delete state.data[itemId]; // Remove the item from the wishlist
+			delete state.data[itemId];
+			localStorage.setItem("wishlistData", JSON.stringify(state.data)); // Change the key here
 		},
 		toggleWishlist: (state, action) => {
 			const itemId = action.payload;
 			if (state.data[itemId]) {
-				delete state.data[itemId]; // If the item is in the wishlist, remove it
+				delete state.data[itemId];
 			} else {
-				state.data[itemId] = true; // If the item is not in the wishlist, add it
+				state.data[itemId] = true;
 			}
+			localStorage.setItem("wishlistData", JSON.stringify(state.data)); // Change the key here
 		},
 	},
 });

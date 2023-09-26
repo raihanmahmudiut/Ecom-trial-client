@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Helper function to retrieve cart data from localStorage
 const getCartDataFromLocalStorage = () => {
 	try {
-		const data = localStorage.getItem("data");
-		return data ? JSON.parse(data) : {};
+		const cartData = localStorage.getItem("cartData"); // Change the key here
+		return cartData ? JSON.parse(cartData) : {};
 	} catch (error) {
 		console.error("Error loading cart data from localStorage:", error);
 		return {};
@@ -20,15 +19,13 @@ const cartSlice = createSlice({
 		addToCart: (state, action) => {
 			const itemId = action.payload;
 			state.data[itemId] = (state.data[itemId] || 0) + 1;
-			// Update localStorage
-			localStorage.setItem("data", JSON.stringify(state.data));
+			localStorage.setItem("cartData", JSON.stringify(state.data)); // Change the key here
 		},
 		removeFromCart: (state, action) => {
 			const itemId = action.payload;
 			if (itemId in state.data) {
 				delete state.data[itemId];
-				// Update localStorage
-				localStorage.setItem("data", JSON.stringify(state.data));
+				localStorage.setItem("cartData", JSON.stringify(state.data)); // Change the key here
 			}
 		},
 		updateCartItemCount: (state, action) => {
@@ -38,8 +35,7 @@ const cartSlice = createSlice({
 				if (newAmount === 0) {
 					delete state.data[itemId];
 				}
-				// Update localStorage
-				localStorage.setItem("data", JSON.stringify(state.data));
+				localStorage.setItem("cartData", JSON.stringify(state.data)); // Change the key here
 			}
 		},
 	},
@@ -47,4 +43,5 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart, updateCartItemCount } =
 	cartSlice.actions;
+
 export default cartSlice.reducer;
